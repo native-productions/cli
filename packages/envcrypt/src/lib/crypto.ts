@@ -56,6 +56,6 @@ export const decrypt = (key: string, iv: string, msg: string) => {
 
   defaultIv = iv;
   const bufferKey = Buffer.from(secKey)
-  const cipher = crypto.createDecipheriv('aes-256-cbc', bufferKey, defaultIv)
+  const cipher = crypto.createCipheriv('aes-256-cbc', bufferKey, defaultIv)
   return cipher.update(msg, 'base64', 'utf8') + cipher.final('utf8')
 }
