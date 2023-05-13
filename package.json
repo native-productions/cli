@@ -2,11 +2,16 @@
   "name": "nvp",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "run:enc": "npx dist/packages/envcrypt",
+    "build:enc": "nx build envcrypt"
+  },
   "private": true,
   "dependencies": {
     "@swc/helpers": "~0.4.11",
+    "commander": "^10.0.1",
     "dotenv": "^16.0.3",
+    "figlet": "^1.6.0",
     "randomstring": "^1.2.3",
     "simple-free-encryption-tool": "^2.0.11",
     "tslib": "^2.3.0",
@@ -24,6 +29,7 @@
     "@swc/cli": "~0.1.55",
     "@swc/core": "^1.2.173",
     "@swc/jest": "0.2.20",
+    "@types/figlet": "^1.5.6",
     "@types/jest": "^29.4.0",
     "@types/node": "18.7.1",
     "@types/randomstring": "^1.1.8",

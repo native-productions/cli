@@ -1,12 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as fs from 'fs'
-import { constants } from "../common/constants";
 import * as path from 'path'
+import { version, name } from '../../package.json'
+
+export function getVersion(): string {
+  return version;
+};
+
+export function getName(): string {
+  return name;
+}
 
 export function isDir(p: string): boolean {
   try {
-    const stat = fs.lstatSync(p);
-    return stat.isDirectory();
+    const stat = fs.lstatSync(joinCwd(p));
+    return stat.isDirectory() || stat.isFile();
   } catch (e) {
     return false;
   }
@@ -17,8 +25,21 @@ export function joinCwd(p: string): string {
 }
 
 export const safeWriteFileAsync = (path: string, data: string, name?: string): Promise<boolean> => new Promise((resolve, reject) => {
-  fs.readFile(path, (err) => {
-    if (err && err.code === constants.errMsg.DIRECTORY_ENOENT) {
+  try {
+    if (fs.existsSync(joinCwd(path))) {
+      console.log('sini?')
+      if (!name) {
+        fs.writeFileSync(joinCwd(`${path}`), data, 'utf8')  
+        resolve(true)
+      }
+      if (path.endsWith('/')) {
+        fs.writeFileSync(joinCwd(`${path}${name}`), data, 'utf8')
+      } else {
+        fs.writeFileSync(joinCwd(`${path}/${name}`), data, 'utf8')
+      }
+      console.log(`Successfully created ${path}${name} file`)
+      resolve(true)
+    } else {
       fs.promises.mkdir(path, { recursive: true })
         .then(() => {
           if (!name) {
@@ -30,24 +51,13 @@ export const safeWriteFileAsync = (path: string, data: string, name?: string): P
           } else {
             fs.writeFileSync(joinCwd(`${path}/${name}`), data, 'utf8')
           }
+          console.log(`Successfully created ${path}${name} file`)
           resolve(true)
         })
-    } else if (err && err.code !== constants.errMsg.DIRECTORY_ENOENT) {
-      reject(err)
-    } else {
-      if (!name) {
-        fs.writeFileSync(joinCwd(`${path}`), data, 'utf8')  
-        resolve(true)
-      }
-      if (path.endsWith('/')) {
-        fs.writeFileSync(joinCwd(`${path}${name}`), data, 'utf8')
-      } else {
-        fs.writeFileSync(joinCwd(`${path}/${name}`), data, 'utf8')
-      }
-      resolve(true)
     }
-    resolve(false)
-  })
+  } catch (error: any) {
+    reject(new Error(error))
+  }
 })
 
 export function isCalledFromConsole(): boolean {

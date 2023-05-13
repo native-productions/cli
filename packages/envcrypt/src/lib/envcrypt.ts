@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as fs from 'fs'
-import { version } from '../../package.json'
 import { decrypt, encrypt } from './crypto'
 import { constants } from '../common/constants'
 import { isDir, joinCwd, safeWriteFileAsync } from './utils'
@@ -10,10 +9,6 @@ export type EnvCryptOptions = {
   iv?: string;
   disableWriteFile?: boolean;
   encFileName?: string;
-};
-
-export function getVersion(): string {
-  return version;
 };
 
 export const encryptSingleData = (secret: string, iv: string, data: string) => {
@@ -32,7 +27,7 @@ export const decryptSingleData = (secret: string, iv: string, data: string) => {
   }
 };
 
-export function toEnc(envPathOrSecVars: string, opt: EnvCryptOptions, outputPath?: string) {
+export async function toEnc(envPathOrSecVars: string, opt: EnvCryptOptions, outputPath?: string) {
   let _iv = constants.defaultIv
   let disableWriteFile = false;
   let fileName = 'out.enc'
@@ -65,18 +60,8 @@ export function toEnc(envPathOrSecVars: string, opt: EnvCryptOptions, outputPath
       const rawEnv = fs.readFileSync(joinCwd(envPathOrSecVars), 'utf8')
       const encryptedEnv = encryptSingleData(opt.secretKey, _iv, rawEnv)
       if (encryptedEnv) {
-        if (!disableWriteFile && outputPath) {
-          safeWriteFileAsync(outputPath, encryptedEnv, fileName)
-            .then((val) => {
-              if (val) {
-                console.log(`Successfully write encrypted file to ${outputPath}`)
-              } else {
-                console.log(`Failed to write encrypted file to ${outputPath}`)
-              }
-            })
-            .catch((err) => {
-              throw new Error(err)
-            })
+        if (!disableWriteFile && !!outputPath) {
+          return await safeWriteFileAsync(outputPath, encryptedEnv, fileName)
         }
         return encryptedEnv
       } else {
@@ -97,7 +82,7 @@ export function toEnc(envPathOrSecVars: string, opt: EnvCryptOptions, outputPath
   }
 };
 
-export function toEnv(encPathOrEncValue: string,  opt: EnvCryptOptions, outputPath?: string) {
+export async function toEnv(encPathOrEncValue: string,  opt: EnvCryptOptions, outputPath?: string) {
   let _iv = constants.defaultIv
   let disableWriteFile = false;
   let fileName = '.env'
@@ -131,17 +116,7 @@ export function toEnv(encPathOrEncValue: string,  opt: EnvCryptOptions, outputPa
       const encryptedEnv = decryptSingleData(opt.secretKey, _iv, rawEnv)
       if (encryptedEnv) {
         if (!disableWriteFile && outputPath) {
-          safeWriteFileAsync(outputPath, encryptedEnv, fileName)
-            .then((val) => {
-              if (val) {
-                console.log(`Successfully write encrypted file to ${outputPath}`)
-              } else {
-                console.log(`Failed to write encrypted file to ${outputPath}`)
-              }
-            })
-            .catch((err) => {
-              throw new Error(err)
-            })
+          return await safeWriteFileAsync(outputPath, encryptedEnv, fileName)
         }
         return encryptedEnv
       } else {
@@ -185,17 +160,7 @@ export async function syncEnc(encFilePath: string, envFilePath: string, opt: Env
       try {
         const encFile = fs.readFileSync(encFilePath, 'utf8')
         const decryptedEnc = decryptSingleData(opt.secretKey, _iv, encFile)
-        safeWriteFileAsync(envFilePath, decryptedEnc)
-        .then((val) => {
-          if (val) {
-            console.log(`Successfully sync enc file to ${encFilePath}`)
-          } else {
-            console.log(`Failed to sync enc file to ${encFilePath}`)
-          }
-        })
-        .catch((err) => {
-          throw new Error(err)
-        })
+        return await safeWriteFileAsync(envFilePath, decryptedEnc)
       } catch (error: any) {
         console.error(error)
         throw new Error(error)
@@ -204,17 +169,7 @@ export async function syncEnc(encFilePath: string, envFilePath: string, opt: Env
       try {
         const envFile = fs.readFileSync(envFilePath, 'utf8')
         const encryptedEnv = encryptSingleData(opt.secretKey, _iv, envFile)
-        safeWriteFileAsync(envFilePath, encryptedEnv)
-        .then((val) => {
-          if (val) {
-            console.log(`Successfully sync env file to ${envFilePath}`)
-          } else {
-            console.log(`Failed to sync env file to ${envFilePath}`)
-          }
-        })
-        .catch((err) => {
-          throw new Error(err)
-        })
+        return await safeWriteFileAsync(envFilePath, encryptedEnv)
       } catch (error: any) {
         console.error(error)
         throw new Error(error)
