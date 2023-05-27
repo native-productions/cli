@@ -14,7 +14,6 @@
     "@commitlint/config-conventional": "^17.6.3",
     "@commitlint/config-nx-scopes": "^17.6.4",
     "@commitlint/cz-commitlint": "^17.5.0",
-    "@swc/helpers": "~0.4.11",
     "commander": "^10.0.1",
     "commitizen": "^4.3.0",
     "dotenv": "^16.0.3",
