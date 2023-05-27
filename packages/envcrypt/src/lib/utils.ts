@@ -20,8 +20,8 @@ export function isDir(p: string): boolean {
   }
 }
 
-export function joinCwd(p: string): string {
-  return path.join(process.cwd(), p)
+export function joinCwd(...p: string[]): string {
+  return path.join.apply(null, [process.cwd(), ...p]);
 }
 
 export const safeWriteFileAsync = (path: string, data: string, name?: string): Promise<boolean> => new Promise((resolve, reject) => {

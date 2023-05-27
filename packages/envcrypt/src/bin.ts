@@ -5,7 +5,6 @@ import * as figlet from 'figlet'
 import { getName, getVersion } from './lib/utils'
 import { constants } from './common/constants'
 import * as readline from 'readline'
-import { toEnc } from './lib/envcrypt'
 
 function presentLogs() {
   console.log(`-------------------- 🔥 Welcome To 🔥 --------------------`)
@@ -34,26 +33,11 @@ function main() {
         });
   
         ask.question('Enter your secret key: ', (key) => {
-          toEnc(
-            input, 
-            {
-              secretKey: key,
-              disableWriteFile: false,
-            },
-            output
-          )
+          // TODO:
           process.exit(0)
         })
       } else {
-        toEnc(
-          input, 
-          {
-            secretKey: opts.key,
-            disableWriteFile: false,
-            encFileName: `${opts.fileName}.enc`
-          },
-          output
-        )
+        // TODO:
         process.exit(0)
       }
     })

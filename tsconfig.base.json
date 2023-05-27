@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nvp/envcrypt": ["packages/envcrypt/src/index.ts"]
+      "@nvp/envcrypt": ["packages/envcrypt/src/index.ts"],
+      "@nvp/image-gen": ["packages/image-gen/src/index.ts"]
     }
   },
   "include": ["examples/ts/"],

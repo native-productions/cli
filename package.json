@@ -1,10 +1,11 @@
 {
-  "name": "nvp",
-  "version": "0.0.0",
+  "name": "nvp-cli",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "run:enc": "npx dist/packages/envcrypt",
-    "build:enc": "nx build envcrypt"
+    "build:enc": "nx build envcrypt",
+    "package:new": "nx g @nrwl/js:lib image-gen"
   },
   "private": true,
   "dependencies": {
@@ -13,6 +14,9 @@
     "dotenv": "^16.0.3",
     "figlet": "^1.6.0",
     "randomstring": "^1.2.3",
+    "semantic-release-npm-github-publish": "^1.5.4",
+    "semantic-release-plus": "^20.0.0",
+    "sharp": "^0.32.1",
     "simple-free-encryption-tool": "^2.0.11",
     "tslib": "^2.3.0",
     "yargs": "^17.1.1-candidate.0"
@@ -46,5 +50,29 @@
     "ts-jest": "^29.0.5",
     "ts-node": "10.9.1",
     "typescript": "~4.9.5"
-  }
+  },
+  "description": "## TODO",
+  "main": "jest.preset.js",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/native-productions/enc.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "keywords": [
+    "nvp",
+    "nvpdev",
+    "native-productions",
+    "nvptech",
+    "nvp"
+  ],
+  "author": "native productions",
+  "bugs": {
+    "url": "https://github.com/native-productions/enc/issues"
+  },
+  "homepage": "https://github.com/native-productions/enc#readme"
 }

@@ -1,0 +1,14 @@
+{
+  "name": "@nvp/image-gen",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "bin": "src/bin.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/native-productions/enc",
+    "directory": "packages/image-gen"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}
