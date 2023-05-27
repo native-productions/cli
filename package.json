@@ -66,9 +66,6 @@
     "type": "git",
     "url": "git+https://github.com/native-productions/enc.git"
   },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "keywords": [
     "nvp",
     "nvpdev",
