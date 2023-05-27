@@ -1,5 +1,5 @@
 {
-  "name": "@nvp/image-gen",
+  "name": "@nvptech/image-gen",
   "version": "1.1.0",
   "type": "commonjs",
   "bin": "src/bin.js",
