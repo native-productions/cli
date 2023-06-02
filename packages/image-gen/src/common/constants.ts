@@ -1,4 +1,6 @@
-const sizes = [
+import { Size } from "./interfaces";
+
+const sizes: Size[] = [
   {
     width: 72,
     height: 72,

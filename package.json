@@ -5,6 +5,7 @@
   "scripts": {
     "run:enc": "npx dist/packages/envcrypt",
     "build:enc": "nx build envcrypt",
+    "build:img-gen": "nx build image-gen",
     "package:new": "nx g @nrwl/js:lib image-gen",
     "prepare": "husky install"
   },
@@ -24,6 +25,7 @@
     "sharp": "^0.32.1",
     "simple-free-encryption-tool": "^2.0.11",
     "tslib": "^2.3.0",
+    "typescript-is": "^0.19.0",
     "yargs": "^17.1.1-candidate.0"
   },
   "devDependencies": {
@@ -64,7 +66,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/native-productions/enc.git"
+    "url": "git+https://github.com/native-productions/cli.git"
   },
   "keywords": [
     "nvp",
@@ -75,7 +77,7 @@
   ],
   "author": "native productions",
   "bugs": {
-    "url": "https://github.com/native-productions/enc/issues"
+    "url": "https://github.com/native-productions/cli/issues"
   },
-  "homepage": "https://github.com/native-productions/enc#readme"
+  "homepage": "https://github.com/native-productions/cli#readme"
 }

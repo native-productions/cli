@@ -32,7 +32,7 @@ function main() {
           output: process.stdout
         });
   
-        ask.question('Enter your secret key: ', (key) => {
+        ask.question('Enter your secret key: ', () => {
           // TODO:
           process.exit(0)
         })
