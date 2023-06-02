@@ -1,11 +1,13 @@
 {
   "name": "@nvptech/image-gen",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "commonjs",
   "bin": "src/bin.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/native-productions/cli",
     "directory": "packages/image-gen"
-  }
+  },
+  "keywords": ["image", "generator", "nvp", "nvpdev"],
+  "readme": "https://github.com/native-productions/cli/blob/main/packages/image-gen/README.md"
 }
